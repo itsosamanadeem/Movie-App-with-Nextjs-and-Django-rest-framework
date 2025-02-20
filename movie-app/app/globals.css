@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+}
+.slick-dots {
+    position: absolute;
+    bottom: 10px; /* Adjust to fit */
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+}
+
+.slick-dots li {
+    margin: 0 5px;
+}
+
+.slick-dots li button:before {
+    font-size: 10px; /* Adjust dot size */
+    color: white !important; /* Change dot color */
+    opacity: 0.75;
+}
+
+.slick-dots li.slick-active button:before {
+    color: yellow !important; /* Change active dot color */
+    opacity: 1;
+}
