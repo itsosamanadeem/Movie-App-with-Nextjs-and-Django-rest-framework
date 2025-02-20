@@ -28,6 +28,15 @@ const PrevArrow = ({ onClick }) => (
 
 const Trending = () => {
     const [movies, setMovies] = useState([]);
+    const [isMobile, setIsMobile] = useState(false);
+
+    // Detect screen size
+    useEffect(() => {
+        const handleResize = () => setIsMobile(window.innerWidth < 1024);
+        handleResize();
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
 
     useEffect(() => {
         const fetchMovies = async () => {
@@ -43,7 +52,7 @@ const Trending = () => {
     }, []);
 
     const settings = {
-        dots: false,
+        dots: isMobile,
         infinite: true,
         speed: 100,
         slidesToShow: 4,
@@ -70,7 +79,7 @@ const Trending = () => {
 
     return (
         <div className="w-full bg-gray-900 text-white py-6">
-            <h2 className="text-2xl font-bold mb-4 px-6">Trending Movies</h2>
+            <h2 className="text-2xl font-bold mb-4 px-6 mt-3">Trending Movies</h2>
             <Slider {...settings}>
                 {movies.map((movie,id) => (
                     <Link

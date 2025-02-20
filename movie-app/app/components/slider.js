@@ -56,7 +56,7 @@ const MainSlider = () => {
     }, []);
 
     const settings = {
-        dots: true, 
+        dots: isMobile, 
         infinite: true,
         speed: 500,
         slidesToShow: 1,
@@ -69,7 +69,7 @@ const MainSlider = () => {
     };
 
     return (
-        <div className="w-full bg-gray-900 text-white">
+        <div className="w-full bg-gray-900 text-white mt-2">
             {loading ? (
                 <div className="h-[500px] flex items-center justify-center text-xl">
                     Loading movies...
