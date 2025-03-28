@@ -17,7 +17,6 @@ class TorrentSearchView(ViewSet):
     
 class TorrentSearchPlayView(ViewSet):
 
-    # def lis()
     def list(self, request):
         query = request.GET.get("query")
         if not query:

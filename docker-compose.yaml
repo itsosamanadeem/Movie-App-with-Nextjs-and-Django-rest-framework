@@ -1,0 +1,9 @@
+version: '3.8'
+
+services:
+  torrent-stream-server:
+    container_name: torrent-stream-server
+    image: ghcr.io/kiralt/torrent-stream-server:latest
+    restart: unless-stopped
+    ports:
+      - "3001:3000"  

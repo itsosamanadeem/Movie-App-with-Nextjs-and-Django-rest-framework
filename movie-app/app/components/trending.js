@@ -9,7 +9,7 @@ import { IoMdArrowDropleft, IoMdArrowDropright } from "react-icons/io";
 import Link from "next/link";
 
 const NextArrow = ({ onClick }) => (
-    <div 
+    <div
         className="absolute top-1/2 right-4 transform -translate-y-1/2 z-10 cursor-pointer bg-gray-950 bg-opacity-50 p-3 rounded-full hover:bg-gray-800 transition"
         onClick={onClick}
     >
@@ -18,7 +18,7 @@ const NextArrow = ({ onClick }) => (
 );
 
 const PrevArrow = ({ onClick }) => (
-    <div 
+    <div
         className="absolute top-1/2 left-4 transform -translate-y-1/2 z-10 cursor-pointer bg-gray-950 bg-opacity-50 p-3 rounded-full hover:bg-gray-800 transition"
         onClick={onClick}
     >
@@ -41,8 +41,10 @@ const Trending = () => {
     useEffect(() => {
         const fetchMovies = async () => {
             try {
-                const { data } = await axios.get("http://127.0.0.1:8001/movies/");
-                setMovies(data);
+                const { data } = await axios.get("https://api.themoviedb.org/3/movie/top_rated?api_key=e98f042a746873a7d2ce20b4d19bde90&language=en-US&page=1");
+                console.log(data);
+
+                setMovies(data.results);
             } catch (error) {
                 console.error("Error fetching movies:", error);
             }
@@ -55,7 +57,7 @@ const Trending = () => {
         dots: isMobile,
         infinite: true,
         speed: 100,
-        slidesToShow: 4,
+        slidesToShow: 6,
         slidesToScroll: 1,
         autoplay: true,
         autoplaySpeed: 4000,
@@ -64,7 +66,7 @@ const Trending = () => {
         responsive: [
             {
                 breakpoint: 1024,
-                settings: { slidesToShow: 4 }
+                settings: { slidesToShow: 6 }
             },
             {
                 breakpoint: 768,
@@ -81,14 +83,14 @@ const Trending = () => {
         <div className="w-full bg-gray-900 text-white py-6">
             <h2 className="text-2xl font-bold mb-4 px-6 mt-3">Trending Movies</h2>
             <Slider {...settings}>
-                {movies.map((movie,id) => (
+                {movies.slice(0,10).map((movie, id) => (
                     <Link
-                    href={`/related-movie/${id+1}`}
-                    key={movie.id} className="px-2 hover:cursor-pointer">
-                        <img 
-                            className="w-full h-[250px] lg:h-[300px] object-cover rounded-lg shadow-md" 
-                            src={movie.poster_url} 
-                            alt={movie.title} 
+                        href={`/related-movie/${movie.title}`}
+                        key={movie.id} className="px-2 hover:cursor-pointer">
+                        <img
+                            className="w-full h-[400px] lg:h-[500px] object-contain rounded-lg shadow-md"
+                            src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                            alt={movie.title}
                             loading="lazy"
                         />
                     </Link>

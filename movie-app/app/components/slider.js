@@ -44,8 +44,10 @@ const MainSlider = () => {
     useEffect(() => {
         const fetchMovies = async () => {
             try {
-                const { data } = await axios.get("http://127.0.0.1:8001/movies/");
-                setMovies(data);
+                const { data } = await axios.get("https://api.themoviedb.org/3/movie/popular?api_key=e98f042a746873a7d2ce20b4d19bde90&language=en-US&page=1");
+                console.log(data.results);
+                
+                setMovies(data.results);
             } catch (err) {
                 setError("Failed to fetch movies.");
             } finally {
@@ -80,19 +82,21 @@ const MainSlider = () => {
                 </div>
             ) : (
                 <Slider {...settings}>
-                    {movies.map((movie) => (
+                    {movies.slice(0,10).map((movie) => (
+
                         <div key={movie.id} className="relative">
                             <img 
                                 className="w-full h-[500px] lg:h-[600px] object-contain object-top md:object-center" 
-                                src={movie.poster_url} 
+                                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} 
                                 alt={movie.title} 
                                 loading="lazy"
                             />
                             <div className="absolute bottom-10 left-10 bg-black bg-opacity-60 p-4 rounded-lg">
-                                <h2 className="text-4xl font-bold">{movie.title}</h2>
-                                <p className="text-lg max-w-lg">{movie.description}</p>
+                                <h2 className="text-4xl my-2 font-bold">{movie.title}</h2>
+                                <p className="text-lg my-2 max-w-lg">{movie.overview}</p>
+                                <p className="text-3xl my-2 font-bold"><span>Release Date</span> {movie.release_date}</p>
                                 <Link 
-                                    href={`/play-movie/${movie.title}`}
+                                    href={`/related-movie/${movie.title}`}
                                     className="mt-4 px-5 py-2 bg-yellow-500 text-black font-semibold rounded-lg hover:bg-yellow-600 transition"
                                 >
                                     Watch Now
